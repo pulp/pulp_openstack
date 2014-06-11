@@ -36,7 +36,8 @@ class TestGenerateUnitKeyAndMetadata(unittest.TestCase):
         unit_key, metadata = self.command.generate_unit_key_and_metadata(data.cirros_img_path)
 
         self.assertEqual(unit_key, {'image_checksum': '64d7c1cd2b6f60c92c14662941cb7913',
-                                    'image_size': 13167616})
+                                    'image_size': 13167616,
+                                    'image_filename': 'cirros-0.3.2-x86_64-disk.img'})
         self.assertEqual(metadata, {})
 
     def test_file_does_not_exist(self):

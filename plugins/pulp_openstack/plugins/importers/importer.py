@@ -51,11 +51,12 @@ class OpenstackImageImporter(Importer):
         Upload a openstack image.
         See super(self.__class__, self).upload_unit() for the docblock explaining this method.
         """
-        image = models.OpenstackImage(unit_key['image_checksum'], unit_key['image_size'])
+        image = models.OpenstackImage(unit_key['image_checksum'], unit_key['image_size'],
+                                      unit_key['image_filename'])
         # not sure if this is the best way to handle init_unit, pulp_docker is a bit different
         image.init_unit(conduit)
-
         shutil.move(file_path, image.storage_path)
+
         try:
             # Let's validate the image. This will raise a
             # ValueError if the image does not validate correctly.

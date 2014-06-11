@@ -3,7 +3,7 @@
         "id": "openstack_image",
         "display_name": "Openstack Image",
         "description": "Openstack Image",
-        "unit_key": ["image_checksum", "image_size"],
+        "unit_key": ["image_checksum", "image_size", "image_filename"],
         "search_indexes": []
     }
 ]}

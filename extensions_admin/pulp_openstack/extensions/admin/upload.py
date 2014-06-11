@@ -1,4 +1,5 @@
 import hashlib
+import os
 
 from pulp.client.commands.repo.upload import UploadCommand
 
@@ -30,7 +31,9 @@ class UploadOpenstackImageCommand(UploadCommand):
         """
         checksum = self._find_image_md5sum(filename)
         size = self._find_image_size(filename)
-        unit_key = {'image_checksum': checksum, 'image_size': size}
+        unit_key = {'image_checksum': checksum,
+                    'image_size': size,
+                    'image_filename': os.path.basename(filename)}
         metadata = {}
 
         return unit_key, metadata
