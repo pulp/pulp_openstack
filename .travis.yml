@@ -1,0 +1,6 @@
+language: python
+python:
+  - "2.6"
+  - "2.7"
+install: "./travis-setup.sh"
+script: "./run-tests.py --enable-coverage"
