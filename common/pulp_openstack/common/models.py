@@ -10,8 +10,7 @@ class OpenstackImage(object):
 
     TYPE_ID = constants.IMAGE_TYPE_ID
 
-    def __init__(self, image_checksum, image_size, image_filename):
-        # TODO: add stuff like arch, image type, container type, etc
+    def __init__(self, image_checksum, image_size, image_filename, properties):
         """
         :param image_checksum:    MD5 sum
         :type  image_checksum:    basestring
@@ -19,10 +18,14 @@ class OpenstackImage(object):
         :type  image_size:        int
         :param image_filename:    filename for the image
         :type  image_filename:    basestring
+        :param properties:        a set of properties relevant to the image
+        :type  properties:        dict
         """
+        # assemble info for unit_key
         self.image_checksum = image_checksum
         self.image_size = image_size
         self.image_filename = image_filename
+        self.metadata = properties
 
     @property
     def unit_key(self):
@@ -43,16 +46,6 @@ class OpenstackImage(object):
         :rtype:     basestring
         """
         return os.path.join(self.TYPE_ID, self.image_checksum)
-
-    @property
-    def metadata(self):
-        """
-        :return:    a subset of the complete openstack metadata about this image,
-                    including only what pulp_openstack cares about
-        :rtype:     dict
-        """
-        # TODO: add stuff like arch, image type, container type, etc
-        return {}
 
     def init_unit(self, conduit):
         """
