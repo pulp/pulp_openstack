@@ -24,7 +24,7 @@ class TestBasics(unittest.TestCase):
         image = models.OpenstackImage('70924d6fa4b2d745185fa4660703a5c0', 10000,
                                       'a_filename.img', {'name': 'test image', 'min_ram': 1024})
 
-        self.assertEqual(image.relative_path, 'openstack_image/70924d6fa4b2d745185fa4660703a5c0')
+        self.assertEqual(image.relative_path, '70924d6fa4b2d745185fa4660703a5c0')
 
     def test_metadata(self):
         image = models.OpenstackImage('70924d6fa4b2d745185fa4660703a5c0', 10000,
@@ -46,5 +46,5 @@ class TestBasics(unittest.TestCase):
                           'image_checksum': '70924d6fa4b2d745185fa4660703a5c0',
                           'image_size': 10000},
                          {'min_ram': 1024, 'name': 'test image'},
-                         'openstack_image/70924d6fa4b2d745185fa4660703a5c0/a_filename.img')
+                         '70924d6fa4b2d745185fa4660703a5c0/a_filename.img')
         mock_conduit.init_unit.assert_called_once_with(*expected_call)

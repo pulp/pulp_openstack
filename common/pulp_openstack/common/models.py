@@ -45,7 +45,7 @@ class OpenstackImage(object):
         :return:    the relative path to where this image's directory should live
         :rtype:     basestring
         """
-        return os.path.join(self.TYPE_ID, self.image_checksum)
+        return self.image_checksum
 
     def init_unit(self, conduit):
         """
