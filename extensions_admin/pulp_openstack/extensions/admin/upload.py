@@ -1,9 +1,24 @@
+from gettext import gettext as _
 import hashlib
 import os
 
 from pulp.client.commands.repo.upload import UploadCommand
+from pulp.client.extensions.extensions import PulpCliOption
 
 from pulp_openstack.common import constants
+
+OPTIONS = []
+d = _('human-readable image name')
+OPTIONS.append(PulpCliOption('--image_name', d, required=True))
+
+d = _('minimum RAM needed to run image')
+OPTIONS.append(PulpCliOption('--image_min_ram', d, required=False))
+
+d = _('disk format')
+OPTIONS.append(PulpCliOption('--image_disk_format', d, required=False))
+
+d = _('container format')
+OPTIONS.append(PulpCliOption('--image_conatiner_format', d, required=False))
 
 
 class UploadOpenstackImageCommand(UploadCommand):
@@ -13,6 +28,21 @@ class UploadOpenstackImageCommand(UploadCommand):
     This mainly just implements generate_unit_key_and_metadata, most
     functionality is handled by super class.
     """
+
+    def __init__(self, context, upload_manager=None, name=None,
+                 description=None, method=None, upload_files=True):
+        """
+        Initialize upload command.
+
+        This adds options to the command; most functionality is handled by the super class.
+        """
+
+        super(UploadOpenstackImageCommand, self).__init__(context, upload_manager, name='upload',
+                                                          description=description,
+                                                          method=method, upload_files=upload_files)
+
+        for option in OPTIONS:
+            self.add_option(option)
 
     def determine_type_id(self, filename, **kwargs):
         """
@@ -41,7 +71,15 @@ class UploadOpenstackImageCommand(UploadCommand):
         unit_key = {'image_checksum': checksum,
                     'image_size': size,
                     'image_filename': os.path.basename(filename)}
-        metadata = {}
+
+        # when uploading an image, set protected=True so the image cannot be
+        # inadvertantly deleted by glance
+
+        metadata = {'image_protected': True}
+        # we dont want to send through every option, just the ones related to images
+        for option in OPTIONS:
+            if option.keyword in kwargs:
+                metadata[option.keyword] = kwargs[option.keyword]
 
         return unit_key, metadata
 
