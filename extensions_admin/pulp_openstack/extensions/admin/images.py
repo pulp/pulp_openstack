@@ -38,6 +38,8 @@ class ImageCopyCommand(UnitCopyCommand):
     def __init__(self, context, name='copy', description=DESC_COPY):
         """
         Initailize copy command.
+
+        See super() for more detail, we just set the type_id here.
         """
         super(ImageCopyCommand, self).__init__(context, name=name, description=description,
                                                method=self.run, type_id=constants.IMAGE_TYPE_ID)
@@ -62,7 +64,9 @@ class ImageRemoveCommand(UnitRemoveCommand):
 
     def __init__(self, context, name='remove', description=DESC_REMOVE):
         """
-        Initialize remove command
+        Initialize remove command.
+
+        See super() for more detail; we just set a few items here
         """
         UnitRemoveCommand.__init__(self, context, name=name, description=description,
                                    type_id=constants.IMAGE_TYPE_ID)

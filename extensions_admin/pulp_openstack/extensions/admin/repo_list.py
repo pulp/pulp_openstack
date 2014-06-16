@@ -14,6 +14,8 @@ class ListOpenstackRepositoriesCommand(ListRepositoriesCommand):
     def __init__(self, context):
         """
         Initialize list command.
+
+        See super() for more detail
         """
         repos_title = _('Openstack Repositories')
         super(ListOpenstackRepositoriesCommand, self).__init__(context, repos_title=repos_title)

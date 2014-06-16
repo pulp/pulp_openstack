@@ -32,6 +32,8 @@ class CreateOpenstackRepositoryCommand(CreateAndConfigureRepositoryCommand):
     def __init__(self, context):
         """
         Initialize command.
+
+        :param context: The client context to use for this command
         """
         super(CreateOpenstackRepositoryCommand, self).__init__(context)
         self.add_option(OPT_AUTO_PUBLISH)
