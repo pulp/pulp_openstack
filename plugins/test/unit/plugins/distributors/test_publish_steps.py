@@ -5,6 +5,8 @@ import unittest
 
 from mock import Mock, patch
 
+from pulp.devel.unit.util import touch
+
 from pulp.plugins.conduits.repo_publish import RepoPublishConduit
 from pulp.plugins.config import PluginCallConfiguration
 from pulp.plugins.model import Repository
@@ -30,6 +32,19 @@ class TestPublishImagesStep(unittest.TestCase):
 
     def tearDown(self):
         shutil.rmtree(self.working_directory)
+
+    def test_process_unit(self):
+        step = publish_steps.PublishImagesStep()
+        fake_image_filename = 'fake-zero-byte-image.qcow2'
+        touch(os.path.join(self.content_directory, fake_image_filename))
+        unit = Mock(unit_key={'image_checksum': 'd41d8cd98f00b204e9800998ecf8427e', 'image_size': 0,
+                              'image_filename': fake_image_filename},
+                    storage_path=os.path.join(self.content_directory, fake_image_filename))
+        step.get_working_dir = Mock(return_value=self.publish_directory)
+        step.process_unit(unit)
+        # verify symlink
+        expected_symlink = os.path.join(self.publish_directory, 'web', fake_image_filename)
+        self.assertTrue(os.path.exists(expected_symlink))
 
     def test_finalize(self):
         step = publish_steps.PublishImagesStep()
