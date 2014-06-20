@@ -27,7 +27,7 @@ class TestBasics(unittest.TestCase):
 class TestImportUnits(unittest.TestCase):
 
     def setUp(self):
-        self.unit_key = {'arch': data.cirros_img_metadata['arch']}
+        self.unit_key = {'image_checksum': data.cirros_img_metadata['image_checksum']}
         self.source_repo = Repository('repo_source')
         self.dest_repo = Repository('repo_dest')
         self.conduit = mock.MagicMock()
@@ -57,10 +57,8 @@ class TestUploadUnit(unittest.TestCase):
 
     @mock.patch('shutil.move')
     def test_upload(self, mock_move):
-        unit_key = {'image_checksum': 'a_checksum',
-                    'image_size': 100,
-                    'image_filename': 'testfile.qcow2'}
-        metadata = {'min_ram': 1024}
+        unit_key = {'image_checksum': 'a_checksum'}
+        metadata = {'min_ram': 1024, 'image_size': 100, 'image_filename': 'testfile.qcow2'}
         mock_conduit = mock.MagicMock()
 
         OpenstackImageImporter().upload_unit(None, None, unit_key, metadata,
@@ -71,10 +69,11 @@ class TestUploadUnit(unittest.TestCase):
     @mock.patch('shutil.move')
     @mock.patch('os.remove')
     def test_upload_invalid_file(self, mock_remove, mock_move, mock_validate):
-        unit_key = {'image_checksum': 'a_checksum',
+        unit_key = {'image_checksum': 'a_checksum'}
+        metadata = {'min_ram': 1024,
                     'image_size': 100,
                     'image_filename': 'testfile.qcow2'}
-        metadata = {'min_ram': 1024}
+
         mock_conduit = mock.MagicMock()
         mock_validate.side_effect = ValueError('mock validation failure')
 

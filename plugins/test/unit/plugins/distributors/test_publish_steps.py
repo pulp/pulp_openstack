@@ -37,8 +37,7 @@ class TestPublishImagesStep(unittest.TestCase):
         step = publish_steps.PublishImagesStep()
         fake_image_filename = 'fake-zero-byte-image.qcow2'
         touch(os.path.join(self.content_directory, fake_image_filename))
-        unit = Mock(unit_key={'image_checksum': 'd41d8cd98f00b204e9800998ecf8427e', 'image_size': 0,
-                              'image_filename': fake_image_filename},
+        unit = Mock(unit_key={'image_checksum': 'd41d8cd98f00b204e9800998ecf8427e'},
                     storage_path=os.path.join(self.content_directory, fake_image_filename))
         step.get_working_dir = Mock(return_value=self.publish_directory)
         step.process_unit(unit)
