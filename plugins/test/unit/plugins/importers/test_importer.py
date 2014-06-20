@@ -35,7 +35,8 @@ class TestImportUnits(unittest.TestCase):
 
     def test_import_all(self):
         mock_unit = mock.Mock(unit_key={'image_checksum':
-                                        '5a46e37274928bb39f84415e2ef61240'}, metadata={})
+                                        '5a46e37274928bb39f84415e2ef61240'},
+                              metadata={'min_ram': 1024})
         self.conduit.get_source_units.return_value = [mock_unit]
         result = OpenstackImageImporter().import_units(self.source_repo, self.dest_repo,
                                                        self.conduit, self.config)
@@ -44,11 +45,12 @@ class TestImportUnits(unittest.TestCase):
 
     def test_import(self):
         mock_unit = mock.Mock(unit_key={'image_checksum':
-                                        '5a46e37274928bb39f84415e2ef61240'}, metadata={})
+                                        '5a46e37274928bb39f84415e2ef61240'},
+                              metadata={'min_ram': 1024})
         result = OpenstackImageImporter().import_units(self.source_repo, self.dest_repo,
                                                        self.conduit, self.config, units=[mock_unit])
         self.assertEquals(result, [mock_unit])
-        self.conduit.associate_unit.assert_called_once_with(mock_unit)
+        self.conduit.associate_unit.assert_called_once()
 
 
 class TestUploadUnit(unittest.TestCase):
@@ -58,7 +60,7 @@ class TestUploadUnit(unittest.TestCase):
         unit_key = {'image_checksum': 'a_checksum',
                     'image_size': 100,
                     'image_filename': 'testfile.qcow2'}
-        metadata = {}
+        metadata = {'min_ram': 1024}
         mock_conduit = mock.MagicMock()
 
         OpenstackImageImporter().upload_unit(None, None, unit_key, metadata,
@@ -72,7 +74,7 @@ class TestUploadUnit(unittest.TestCase):
         unit_key = {'image_checksum': 'a_checksum',
                     'image_size': 100,
                     'image_filename': 'testfile.qcow2'}
-        metadata = {}
+        metadata = {'min_ram': 1024}
         mock_conduit = mock.MagicMock()
         mock_validate.side_effect = ValueError('mock validation failure')
 
