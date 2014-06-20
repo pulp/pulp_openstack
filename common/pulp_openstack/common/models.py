@@ -10,21 +10,15 @@ class OpenstackImage(object):
 
     TYPE_ID = constants.IMAGE_TYPE_ID
 
-    def __init__(self, image_checksum, image_size, image_filename, properties):
+    def __init__(self, image_checksum, properties):
         """
         :param image_checksum:    MD5 sum
         :type  image_checksum:    basestring
-        :param image_size:        size of file in bytes
-        :type  image_size:        int
-        :param image_filename:    filename for the image
-        :type  image_filename:    basestring
         :param properties:        a set of properties relevant to the image
         :type  properties:        dict
         """
         # assemble info for unit_key
         self.image_checksum = image_checksum
-        self.image_size = image_size
-        self.image_filename = image_filename
         self.metadata = properties
 
     @property
@@ -35,8 +29,6 @@ class OpenstackImage(object):
         """
         return {
             'image_checksum': self.image_checksum,
-            'image_size': self.image_size,
-            'image_filename': self.image_filename
         }
 
     @property
@@ -55,7 +47,8 @@ class OpenstackImage(object):
         :param conduit: The conduit to call init_unit() to get a Unit.
         :type  conduit: pulp.plugins.conduits.mixins.AddUnitMixin
         """
-        relative_path_with_filename = os.path.join(self.relative_path, self.image_filename)
+        relative_path_with_filename = os.path.join(self.relative_path,
+                                                   self.metadata['image_filename'])
         # this wants relpath + filename, not just relpath
         self._unit = conduit.init_unit(self.TYPE_ID, self.unit_key, self.metadata,
                                        relative_path_with_filename)

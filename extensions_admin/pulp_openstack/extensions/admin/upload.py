@@ -70,15 +70,16 @@ class UploadOpenstackImageCommand(UploadCommand):
         :rtype:  tuple
         """
         checksum = self._find_image_md5sum(filename)
-        size = self._find_image_size(filename)
-        unit_key = {'image_checksum': checksum,
-                    'image_size': size,
-                    'image_filename': os.path.basename(filename)}
+        unit_key = {'image_checksum': checksum}
 
         # when uploading an image, set protected=True so the image cannot be
         # inadvertantly deleted by glance
 
-        metadata = {'image_protected': True}
+        size = self._find_image_size(filename)
+        metadata = {'image_protected': True,
+                    'image_size': size,
+                    'image_filename': os.path.basename(filename)}
+
         # we dont want to send through every option, just the ones related to images
         for option in OPTIONS:
             if option.keyword in kwargs:
