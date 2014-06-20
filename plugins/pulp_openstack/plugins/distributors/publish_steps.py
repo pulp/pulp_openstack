@@ -1,5 +1,6 @@
 from gettext import gettext as _
 
+import logging
 import os
 
 from pulp.plugins.util.publish_step import PublishStep, UnitPublishStep, \
@@ -7,6 +8,8 @@ from pulp.plugins.util.publish_step import PublishStep, UnitPublishStep, \
 
 from pulp_openstack.common import constants
 from pulp_openstack.plugins.distributors import configuration
+
+_logger = logging.getLogger(__name__)
 
 
 class WebPublisher(PublishStep):
@@ -54,9 +57,30 @@ class PublishImagesStep(UnitPublishStep):
         self.redirect_context = None
         self.description = _('Publishing Image Files.')
 
+    def process_unit(self, unit):
+        """
+        Link the unit to the image content directory
+
+        :param unit: The unit to process
+        :type unit: pulp_openstack.common.models.OpenstackImage
+        """
+        # note: we do not use the image checksum in the published directory path
+        target_base = os.path.join(self.get_web_directory())
+        _logger.info("linking %s to %s" % (unit.storage_path,
+                                           os.path.join(target_base,
+                                                        os.path.basename(unit.storage_path))))
+        self._create_symlink(unit.storage_path,
+                             os.path.join(target_base, os.path.basename(unit.storage_path)))
+
     def finalize(self):
         """
         Close & finalize each the metadata context
         """
         if self.redirect_context:
             self.redirect_context.finalize()
+
+    def get_web_directory(self):
+        """
+        Get the directory where the files published to the web have been linked
+        """
+        return os.path.join(self.get_working_dir(), 'web')
