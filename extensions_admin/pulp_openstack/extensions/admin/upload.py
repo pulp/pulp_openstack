@@ -35,6 +35,8 @@ class UploadOpenstackImageCommand(UploadCommand):
         Initialize upload command.
 
         This adds options to the command; most functionality is handled by the super class.
+
+        See super() class for more detail.
         """
 
         super(UploadOpenstackImageCommand, self).__init__(context, upload_manager, name='upload',
@@ -48,6 +50,7 @@ class UploadOpenstackImageCommand(UploadCommand):
         """
         We only support one content type, so this always returns that.
 
+        :param filename: filename to determine type of (not used)
         :return: ID of the type of file being uploaded
         :rtype:  str
         """

@@ -131,5 +131,10 @@ class OpenstackImageImporter(Importer):
     def validate_config(self, repo, config):
         """
         We don't have a config yet, so it's always valid
+
+        :param repo: repo to check
+        :type  repo: pulp.plugins.model.Repository
+        :param config: plugin configuration
+        :type  config: pulp.plugins.config.PluginCallConfiguration
         """
         return True, ''
