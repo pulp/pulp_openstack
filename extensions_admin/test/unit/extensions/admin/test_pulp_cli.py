@@ -37,5 +37,11 @@ class TestInitialize(unittest.TestCase):
         self.assertTrue(isinstance(upload_section.commands['upload'], UploadOpenstackImageCommand))
 
         section = repo_section.subsections['publish']
-        self.assertTrue(isinstance(section.commands['status'], PublishStatusCommand))
-        self.assertTrue(isinstance(section.commands['run'], RunPublishRepositoryCommand))
+        glance_section = section.subsections['http']
+        self.assertTrue(isinstance(glance_section.commands['status'], PublishStatusCommand))
+        self.assertTrue(isinstance(glance_section.commands['run'], RunPublishRepositoryCommand))
+
+        section = repo_section.subsections['publish']
+        glance_section = section.subsections['glance']
+        self.assertTrue(isinstance(glance_section.commands['status'], PublishStatusCommand))
+        self.assertTrue(isinstance(glance_section.commands['run'], RunPublishRepositoryCommand))

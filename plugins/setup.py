@@ -11,10 +11,12 @@ setup(
     description='plugins for openstack image support in pulp',
     entry_points={
         'pulp.importers': [
-            'importer = pulp_openstack.plugins.importers.importer:entry_point',
+           'importer = pulp_openstack.plugins.importers.importer:entry_point',
         ],
         'pulp.distributors': [
             'web_distributor = pulp_openstack.plugins.distributors.distributor_web:entry_point',
+            'glance_distributor = '
+            'pulp_openstack.plugins.distributors.distributor_glance:entry_point',
         ]
     }
 )

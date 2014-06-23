@@ -38,4 +38,18 @@ class TestCreateOpenstackRepositoryCommand(unittest.TestCase):
             'protected': True
         }
         result = command._describe_distributors(user_input)
-        self.assertEquals(result[0]["distributor_config"], {'protected': True})
+        for r in result:
+            if r['distributor_id'] == 'openstack_web_distributor_name_cli':
+                self.assertEquals(r["distributor_config"], {'protected': True})
+
+    def test_describe_distributors_check_keystone_opts(self):
+        command = cudl.CreateOpenstackRepositoryCommand(Mock())
+        user_input = {
+            'keystone-tenant': 'test-tenant',
+            'keystone-username': 'test-username',
+        }
+        result = command._describe_distributors(user_input)
+        for r in result:
+            if r['distributor_id'] == 'openstack_glance_distributor_name_cli':
+                self.assertEquals(r["distributor_config"], {'keystone-username': 'test-username',
+                                                            'keystone-tenant': 'test-tenant'})

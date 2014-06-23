@@ -18,6 +18,19 @@ d = _('if "true" requests for this repo will be checked for an entitlement certi
       'the server url for this repository; if "false" no authorization checking will be done.')
 OPT_PROTECTED = PulpCliOption('--protected', d, required=False, parse_func=parsers.parse_boolean)
 
+# build up options (maybe this should be refactored out, not sure)
+d = _('keystone username')
+OPT_KEYSTONE_USERNAME = PulpCliOption('--keystone-username', d, required=False)
+
+d = _('keystone password')
+OPT_KEYSTONE_PASSWORD = PulpCliOption('--keystone-password', d, required=False)
+
+d = _('keystone URL')
+OPT_KEYSTONE_URL = PulpCliOption('--keystone-url', d, required=False)
+
+d = _('keystone tenant')
+OPT_KEYSTONE_TENANT = PulpCliOption('--keystone-tenant', d, required=False)
+
 
 class CreateOpenstackRepositoryCommand(CreateAndConfigureRepositoryCommand):
     """
@@ -38,6 +51,10 @@ class CreateOpenstackRepositoryCommand(CreateAndConfigureRepositoryCommand):
         super(CreateOpenstackRepositoryCommand, self).__init__(context)
         self.add_option(OPT_AUTO_PUBLISH)
         self.add_option(OPT_PROTECTED)
+        self.add_option(OPT_KEYSTONE_USERNAME)
+        self.add_option(OPT_KEYSTONE_PASSWORD)
+        self.add_option(OPT_KEYSTONE_URL)
+        self.add_option(OPT_KEYSTONE_TENANT)
 
     def _describe_distributors(self, user_input):
         """
@@ -53,6 +70,14 @@ class CreateOpenstackRepositoryCommand(CreateAndConfigureRepositoryCommand):
         :rtype:     list of dict
         """
         config = {}
+        # set up any optional keystone login options
+        distributor_opts = [OPT_KEYSTONE_USERNAME, OPT_KEYSTONE_PASSWORD,
+                            OPT_KEYSTONE_URL, OPT_KEYSTONE_TENANT]
+        for option in distributor_opts:
+            value = user_input.pop(option.keyword, None)
+            if value is not None:
+                config[option.keyword] = value
+
         value = user_input.pop(OPT_PROTECTED.keyword, None)
         if value is not None:
             config[constants.CONFIG_KEY_PROTECTED] = value
@@ -63,6 +88,10 @@ class CreateOpenstackRepositoryCommand(CreateAndConfigureRepositoryCommand):
                  distributor_config=config,
                  auto_publish=auto_publish,
                  distributor_id=constants.CLI_WEB_DISTRIBUTOR_ID),
+            dict(distributor_type_id=constants.DISTRIBUTOR_GLANCE_TYPE_ID,
+                 distributor_config=config,
+                 auto_publish=auto_publish,
+                 distributor_id=constants.CLI_GLANCE_DISTRIBUTOR_ID),
         ]
 
         return data

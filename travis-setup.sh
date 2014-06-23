@@ -19,6 +19,8 @@ pip install celery
 pip install okaara
 pip install coverage
 pip install pep257
+pip install python-glanceclient
+pip install python-keystoneclient
 
 sudo mkdir -p /etc/pulp
 sudo cp fake-server.conf /etc/pulp/server.conf

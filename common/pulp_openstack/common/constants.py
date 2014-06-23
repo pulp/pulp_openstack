@@ -1,11 +1,11 @@
 
-# TODO: not all of these are used, extras need to be removed
-
 IMAGE_TYPE_ID = 'openstack_image'
 IMPORTER_TYPE_ID = 'openstack_importer'
 IMPORTER_CONFIG_RELATIVE_PATH = 'server/plugins.conf.d/openstack_importer.json'
 DISTRIBUTOR_WEB_TYPE_ID = 'openstack_distributor_web'
+DISTRIBUTOR_GLANCE_TYPE_ID = 'openstack_distributor_glance'
 CLI_WEB_DISTRIBUTOR_ID = 'openstack_web_distributor_name_cli'
+CLI_GLANCE_DISTRIBUTOR_ID = 'openstack_glance_distributor_name_cli'
 DISTRIBUTOR_CONFIG_FILE_NAME = 'server/plugins.conf.d/openstack_distributor.json'
 
 REPO_NOTE_GLANCE = 'openstack-repo'
@@ -22,3 +22,6 @@ CONFIG_KEY_PROTECTED = 'protected'
 PUBLISH_STEP_WEB_PUBLISHER = 'publish_to_web'
 PUBLISH_STEP_IMAGES = 'publish_images'
 PUBLISH_STEP_OVER_HTTP = 'publish_images_over_http'
+
+PUBLISH_STEP_GLANCE_PUBLISHER = 'publish_to_glance'
+PUBLISH_STEP_OVER_GLANCE_REST = 'publish_images_over_glance_rest'
