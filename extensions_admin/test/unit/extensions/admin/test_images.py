@@ -21,7 +21,7 @@ class TestGetFormatterForType(unittest.TestCase):
 
     def test_get_formatter_for_type(self):
         formatter = images.get_formatter_for_type(constants.IMAGE_TYPE_ID)
-        self.assertEquals('foo', formatter({'image_id': 'foo'}))
+        self.assertEquals('123abc456', formatter({'image_checksum': '123abc456'}))
 
     def test_get_formatter_for_type_raises_value_error(self):
         self.assertRaises(ValueError, images.get_formatter_for_type, 'foo-type')

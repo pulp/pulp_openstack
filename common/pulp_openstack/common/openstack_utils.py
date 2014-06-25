@@ -95,6 +95,21 @@ class OpenstackUtils():
                    'checksum': image_checksum}
         return self.glance_client.images.list(filters=filters)
 
+    def find_repo_images(self, repo_id):
+        """
+        Find all images associated with a particular repo. This is useful to
+        calculate which images need to be deleted (i.e., exists in glance but
+        not pulp, yet are associated with a pulp repo).
+
+        :param repo_id: repo name
+        :type  repo_id: string
+        :return: iterator of found images
+        :rtype: iterator
+        """
+        filters = {'from_pulp': 'true',
+                   'pulp_repo_id': repo_id}
+        return self.glance_client.images.list(filters=filters)
+
     def delete_image(self, image):
         """
         delete an image based on its ID

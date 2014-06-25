@@ -9,7 +9,7 @@ DESC_COPY = _('copies images from one repository into another')
 DESC_REMOVE = _('remove images from a repository')
 DESC_SEARCH = _('search for images in a repository')
 
-MODULE_ID_TEMPLATE = '%(image_id)s'
+MODULE_ID_TEMPLATE = '%(image_checksum)s'
 
 
 def get_formatter_for_type(type_id):
