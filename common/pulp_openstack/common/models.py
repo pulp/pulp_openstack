@@ -64,5 +64,7 @@ class OpenstackImage(object):
     def storage_path(self):
         """
         Return the storage path of the Unit that underlies this image.
+        :return: storage path
+        :rtype: string
         """
         return self._unit.storage_path

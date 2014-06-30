@@ -51,6 +51,7 @@ class UploadOpenstackImageCommand(UploadCommand):
         We only support one content type, so this always returns that.
 
         :param filename: filename to determine type of (not used)
+        :type  filename: string
         :return: ID of the type of file being uploaded
         :rtype:  str
         """

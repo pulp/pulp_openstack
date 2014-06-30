@@ -62,7 +62,7 @@ class PublishImagesStep(UnitPublishStep):
         Link the unit to the image content directory
 
         :param unit: The unit to process
-        :type unit: pulp_openstack.common.models.OpenstackImage
+        :type  unit: pulp_openstack.common.models.OpenstackImage
         """
         # note: we do not use the image checksum in the published directory path
         target_base = os.path.join(self.get_web_directory())
@@ -82,5 +82,7 @@ class PublishImagesStep(UnitPublishStep):
     def get_web_directory(self):
         """
         Get the directory where the files published to the web have been linked
+        :return: path to web directory
+        :rtype: string
         """
         return os.path.join(self.get_working_dir(), 'web')

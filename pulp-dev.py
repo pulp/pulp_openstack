@@ -30,6 +30,8 @@ LINKS = (
 def parse_cmdline():
     """
     Parse and validate the command line options.
+    :return: tuple with options and args
+    :rtype: tuple
     """
     parser = optparse.OptionParser()
 

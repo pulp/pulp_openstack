@@ -14,6 +14,8 @@ def validate_config(config):
     :param config: Pulp configuration for the distributor
     :type  config: pulp.plugins.config.PluginCallConfiguration
     :raises: PulpCodedValidationException if any validations failed
+    :return: (True, None)
+    :rtype: tuple
     """
     errors = []
     server_url = config.get(constants.CONFIG_KEY_REDIRECT_URL)
