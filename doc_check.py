@@ -1,8 +1,10 @@
-import ast
+import ast, _ast
 
 
 ERR_NO_PARAM_TEMPLATE = "Function %s is missing sphinx param definition for argument %s (%s:%i)"
 ERR_NO_TYPE_TEMPLATE = "Function %s is missing sphinx type definition for argument %s (%s:%i)"
+ERR_NO_RTYPE_TEMPLATE = "Function %s is missing sphinx type definition for return type (%s:%i)"
+ERR_NO_RETURNS_TEMPLATE = "Function %s is missing sphinx definition for return statement (%s:%i)"
 
 
 class FindDocstrings(ast.NodeVisitor):
@@ -43,6 +45,9 @@ class FindDocstrings(ast.NodeVisitor):
 
         PARAM_STR = ":param %s:"
         TYPE_STR_TWOSPACE = ":type  %s:"
+        RTYPE = ":rtype:"
+        RETURNS = ":return:"
+
         docstring = ast.get_docstring(node)
         if node.args:
             arglist = node.args.args
@@ -60,6 +65,16 @@ class FindDocstrings(ast.NodeVisitor):
                         self.error_list.append(ERR_NO_TYPE_TEMPLATE %
                                                (node.name, param.id,
                                                 self.src_filename, param.lineno))
+        for statement in node.body:
+            # if there's a return statement, check for additional docs
+            if isinstance(statement, _ast.Return) and \
+               docstring and 'See super' not in docstring:
+                if RTYPE not in docstring:
+                    self.error_list.append(ERR_NO_RTYPE_TEMPLATE %
+                                           (node.name, self.src_filename, statement.lineno))
+                if RETURNS not in docstring:
+                    self.error_list.append(ERR_NO_RETURNS_TEMPLATE %
+                                           (node.name, self.src_filename, statement.lineno))
 
         ast.NodeVisitor.generic_visit(self, node)
 
@@ -85,5 +100,7 @@ class RunDocstringCheck():
     def get_errors(self):
         """
         return found errors
+        :return: list of errors
+        :rtype: list
         """
         return self.finder.error_list

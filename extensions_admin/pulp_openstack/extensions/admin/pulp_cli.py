@@ -53,6 +53,8 @@ def add_upload_section(context, parent_section):
     :param parent_section:  section of the CLI to which the upload section
                             should be added
     :type  parent_section:  pulp.client.extensions.extensions.PulpCliSection
+    :return: populated section
+    :rtype: PulpCliSection
     """
     upload_section = parent_section.create_subsection(SECTION_UPLOADS, DESC_UPLOADS)
     upload_section.add_command(UploadOpenstackImageCommand(context))
@@ -69,6 +71,8 @@ def add_repo_section(context, parent_section):
     :param parent_section:  section of the CLI to which the repo section
                             should be added
     :type  parent_section:  pulp.client.extensions.extensions.PulpCliSection
+    :return: populated section
+    :rtype: PulpCliSection
     """
     repo_section = parent_section.create_subsection(SECTION_REPO, DESC_REPO)
 
@@ -91,6 +95,8 @@ def add_publish_section(context, parent_section):
     :type  context: pulp.client.extensions.core.ClientContext
     :param parent_section:  section of the CLI to which the repo section should be added
     :type  parent_section:  pulp.client.extensions.extensions.PulpCliSection
+    :return: populated section
+    :rtype: PulpCliSection
     """
     publish_section = parent_section.create_subsection(SECTION_PUBLISH, DESC_PUBLISH)
 

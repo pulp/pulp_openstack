@@ -87,6 +87,8 @@ class OpenstackUtils():
         :type  repo_id: string
         :param image_checksum: image checksum
         :type  image_checksum: string
+        :return: list of images
+        :rtype: iterator
         """
         filters = {'from_pulp': 'true',
                    'pulp_repo_id': repo_id,

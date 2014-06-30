@@ -135,5 +135,7 @@ class OpenstackImageImporter(Importer):
         :type  repo: pulp.plugins.model.Repository
         :param config: plugin configuration
         :type  config: pulp.plugins.config.PluginCallConfiguration
+        :return: (True, '')
+        :rtype: tuple
         """
         return True, ''

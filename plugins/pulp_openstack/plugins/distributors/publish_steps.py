@@ -82,5 +82,7 @@ class PublishImagesStep(UnitPublishStep):
     def get_web_directory(self):
         """
         Get the directory where the files published to the web have been linked
+        :return: path to web directory
+        :rtype: string
         """
         return os.path.join(self.get_working_dir(), 'web')

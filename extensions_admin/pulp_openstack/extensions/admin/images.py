@@ -54,7 +54,8 @@ class ImageCopyCommand(UnitCopyCommand):
         :param type_id: the type_id of the unit key to get a formatter for
         :type  type_id: str
 
-        :return: function
+        :return: formatter function
+        :rtype: function
         """
         return get_formatter_for_type(type_id)
 
@@ -82,6 +83,7 @@ class ImageRemoveCommand(UnitRemoveCommand):
         :param type_id: the type_id of the unit key to get a formatter for
         :type  type_id: str
 
-        :return: function
+        :return: formatter function
+        :rtype: function
         """
         return get_formatter_for_type(type_id)
