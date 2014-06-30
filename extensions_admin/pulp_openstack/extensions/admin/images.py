@@ -18,7 +18,8 @@ def get_formatter_for_type(type_id):
     to be used as the output for the unit_remove command.
 
     :param type_id: The type of the unit for which a formatter is needed
-    :type type_id: str
+    :type  type_id: str
+
     :raises ValueError: if the method does not recognize the type_id
     :return: method
     :rtype:  callable
@@ -51,7 +52,8 @@ class ImageCopyCommand(UnitCopyCommand):
         for display purposes.
 
         :param type_id: the type_id of the unit key to get a formatter for
-        :type type_id: str
+        :type  type_id: str
+
         :return: function
         """
         return get_formatter_for_type(type_id)
@@ -78,7 +80,8 @@ class ImageRemoveCommand(UnitRemoveCommand):
         purposes.
 
         :param type_id: the type_id of the unit key to get a formatter for
-        :type type_id: str
+        :type  type_id: str
+
         :return: function
         """
         return get_formatter_for_type(type_id)

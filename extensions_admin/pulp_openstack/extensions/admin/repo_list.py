@@ -30,9 +30,10 @@ class ListOpenstackRepositoriesCommand(ListRepositoriesCommand):
         Get a list of all the openstack repositories that match the specified query params
 
         :param query_params: query parameters for refining the list of repositories
-        :type query_params: dict
+        :type  query_params: dict
         :param kwargs: Any additional parameters passed into the repo list command
-        :type kwargs: dict
+        :type  kwargs: dict
+
         :return: List of openstack repositories
         :rtype: list of dict
         """
@@ -52,7 +53,8 @@ class ListOpenstackRepositoriesCommand(ListRepositoriesCommand):
          Get a list of all the non openstack repositories that match the specified query params
 
         :param query_params: query parameters for refining the list of repositories
-        :type query_params: dict
+        :type  query_params: dict
+
         :param kwargs: Any additional parameters passed into the repo list command
         :type kwargs: dict
         :return: List of non repositories
@@ -75,9 +77,11 @@ class ListOpenstackRepositoriesCommand(ListRepositoriesCommand):
         get all the repositories that match a set of query parameters
 
         :param query_params: query parameters for refining the list of repositories
-        :type query_params: dict
+        :type  query_params: dict
+
         :param kwargs: Any additional parameters passed into the repo list command
-        :type kwargs: dict
+        :type  kwargs: dict
+
         :return: list of repositories
         :rtype: list of dict
         """

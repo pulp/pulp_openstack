@@ -35,8 +35,8 @@ def initialize(context):
     """
     create the openstack CLI section and add it to the root
 
-    :param  context: CLI context
-    :type   context: pulp.client.extensions.core.ClientContext
+    :param context: CLI context
+    :type  context: pulp.client.extensions.core.ClientContext
     """
     root_section = context.cli.create_section(SECTION_ROOT, DESC_ROOT)
     repo_section = add_repo_section(context, root_section)
@@ -48,6 +48,7 @@ def add_upload_section(context, parent_section):
     """
     add an upload section to the openstack section
 
+    :param context: pulp context
     :type  context: pulp.client.extensions.core.ClientContext
     :param parent_section:  section of the CLI to which the upload section
                             should be added
@@ -63,6 +64,7 @@ def add_repo_section(context, parent_section):
     """
     add a repo section to the openstack section
 
+    :param context: pulp context
     :type  context: pulp.client.extensions.core.ClientContext
     :param parent_section:  section of the CLI to which the repo section
                             should be added
@@ -85,6 +87,7 @@ def add_publish_section(context, parent_section):
 
     This adds both an "http" and "glance" publish command.
 
+    :param context: pulp context
     :type  context: pulp.client.extensions.core.ClientContext
     :param parent_section:  section of the CLI to which the repo section should be added
     :type  parent_section:  pulp.client.extensions.extensions.PulpCliSection

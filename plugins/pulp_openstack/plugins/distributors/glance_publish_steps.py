@@ -64,7 +64,7 @@ class PublishImagesStep(UnitPublishStep):
         Link the unit to the image content directory
 
         :param unit: The unit to process
-        :type unit: pulp_openstack.common.models.OpenstackImage
+        :type  unit: pulp_openstack.common.models.OpenstackImage
         """
         _logger.info("pushing image %s from repo %s to glance" % (unit, self.get_repo().id))
         images = list(self.ou.find_image(self.get_repo().id, unit.unit_key['image_checksum']))

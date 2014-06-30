@@ -19,9 +19,13 @@ class OpenstackUtils():
         Initialize openstack util
 
         :param username: keystone username
+        :type  username: string
         :param password: keystone password
+        :type  password: string
         :param tenant_name: keystone tenant name
+        :type  tenant_name: string
         :param auth_url: keystone authentication URL
+        :type  auth_url: string
         """
 
         keystone_auth_args = {'username': username,
@@ -41,10 +45,15 @@ class OpenstackUtils():
         upload an image into glance
 
         :param filename: image filename
+        :type  filename: string
         :param repo_id: id for pulp repo that the image is associated with
+        :type  repo_id: string
         :param name: human-readable name for image
+        :type  name: string
         :param checksum: checksum we expect image to have. This gets validated after the upload.
+        :type  checksum: string
         :param size: size we expect image to have. This gets validated as after the upload.
+        :type  size: int
         """
         # see http://docs.openstack.org/image-guide/content/image-formats.html
         # TODO; set private properties per flaper87
@@ -75,7 +84,9 @@ class OpenstackUtils():
         Find an image from openstack. If this returns more than one image, something bad happened.
 
         :param repo_id: repo name
+        :type  repo_id: string
         :param image_checksum: image checksum
+        :type  image_checksum: string
         """
         filters = {'from_pulp': 'true',
                    'pulp_repo_id': repo_id,
@@ -87,6 +98,7 @@ class OpenstackUtils():
         delete an image based on its ID
 
         :param image: image object
+        :type  image: glanceclient.v1.images.Image
         """
         self.glance_client.images.update(image.id, protected=False)
         self.glance_client.images.delete(image.id)

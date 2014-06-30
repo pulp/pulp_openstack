@@ -47,6 +47,7 @@ class CreateOpenstackRepositoryCommand(CreateAndConfigureRepositoryCommand):
         Initialize command.
 
         :param context: The client context to use for this command
+        :type  context: pulp.client.extensions.core.ClientContext
         """
         super(CreateOpenstackRepositoryCommand, self).__init__(context)
         self.add_option(OPT_AUTO_PUBLISH)
@@ -62,7 +63,7 @@ class CreateOpenstackRepositoryCommand(CreateAndConfigureRepositoryCommand):
         is needed to create distributor configs.
 
         :param user_input:  dictionary of data passed in by okaara
-        :type  user_inpus:  dict
+        :type  user_input:  dict
 
         :return:    list of dict containing distributor_type_id,
                     repo_plugin_config, auto_publish, and distributor_id (the same
