@@ -2,7 +2,7 @@
 %{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
 
 Name: pulp-openstack
-Version: 0.0
+Version: 0.1
 Release: 1%{?dist}
 Summary: Support for Openstack images in the Pulp platform
 Group: Development/Languages
@@ -143,3 +143,6 @@ pulp-admin extensions for openstack image support
 
 
 %changelog
+* Tue Jul 01 2014 Chris Duryee <cduryee@redhat.com> 0.1-1
+- new package built with tito
+
