@@ -66,9 +66,9 @@ class PublishImagesStep(UnitPublishStep):
         """
         # note: we do not use the image checksum in the published directory path
         target_base = os.path.join(self.get_web_directory())
-        _logger.info("linking %s to %s" % (unit.storage_path,
-                                           os.path.join(target_base,
-                                                        os.path.basename(unit.storage_path))))
+        _logger.debug("linking %s to %s" % (unit.storage_path,
+                                            os.path.join(target_base,
+                                                         os.path.basename(unit.storage_path))))
         self._create_symlink(unit.storage_path,
                              os.path.join(target_base, os.path.basename(unit.storage_path)))
 
@@ -83,6 +83,6 @@ class PublishImagesStep(UnitPublishStep):
         """
         Get the directory where the files published to the web have been linked
         :return: path to web directory
-        :rtype: string
+        :rtype: str
         """
         return os.path.join(self.get_working_dir(), 'web')

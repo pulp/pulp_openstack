@@ -13,7 +13,7 @@ class OpenstackImage(object):
     def __init__(self, image_checksum, properties):
         """
         :param image_checksum:    MD5 sum
-        :type  image_checksum:    basestring
+        :type  image_checksum:    str
         :param properties:        a set of properties relevant to the image
         :type  properties:        dict
         """
@@ -35,7 +35,7 @@ class OpenstackImage(object):
     def relative_path(self):
         """
         :return:    the relative path to where this image's directory should live
-        :rtype:     basestring
+        :rtype:     str
         """
         return self.image_checksum
 

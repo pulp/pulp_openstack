@@ -73,10 +73,10 @@ class PublishImagesStep(UnitPublishStep):
         # be deleted via finalize()
         self.images_processed.append(unit.unit_key['image_checksum'])
 
-        _logger.info("pushing unit %s from repo %s to glance" % (unit, self.get_repo().id))
+        _logger.debug("pushing unit %s from repo %s to glance" % (unit, self.get_repo().id))
         images = list(self.ou.find_image(self.get_repo().id, unit.unit_key['image_checksum']))
 
-        _logger.info("found existing image in glance: %s" % images)
+        _logger.debug("found existing image in glance: %s" % images)
         if len(images) > 1:
             raise RuntimeError("more than one image found with same checksum for repo %s!" %
                                self.get_repo().id)
@@ -87,7 +87,7 @@ class PublishImagesStep(UnitPublishStep):
                                  checksum=unit.unit_key['image_checksum'],
                                  size=unit.metadata['image_size'])
         else:
-            _logger.info("image already exists, skipping publish")
+            _logger.debug("image already exists, skipping publish")
 
     def finalize(self):
         """
@@ -97,20 +97,20 @@ class PublishImagesStep(UnitPublishStep):
         """
         # this could be more elegant
         glance_image_by_checksum = {}
-        glance_images = list(self.ou.find_repo_images(self.get_repo().id))
+        glance_images = self.ou.find_repo_images(self.get_repo().id)
         for glance_image in glance_images:
             glance_image_by_checksum[glance_image.checksum] = glance_image
-        _logger.info("images in glance associated with repo: %s" % glance_image_by_checksum.keys())
+        _logger.debug("images in glance associated with repo: %s" % glance_image_by_checksum.keys())
 
         pulp_image_checksums = self.images_processed
-        _logger.info("images in pulp associated with repo: %s" % pulp_image_checksums)
+        _logger.debug("images in pulp associated with repo: %s" % pulp_image_checksums)
 
         for pulp_image_checksum in pulp_image_checksums:
             if pulp_image_checksum not in glance_image_by_checksum.keys():
                 raise RuntimeError("Images found in pulp repo that were not published to glance. "
                                    "Please consult error log for more details.")
 
-        for glance_image_checksum in glance_image_by_checksum.keys():
+        for glance_image_checksum in glance_image_by_checksum:
             if glance_image_checksum not in pulp_image_checksums:
                 _logger.info("deleting image with checksum %s from glance" % glance_image_checksum)
                 self.ou.delete_image(glance_image_by_checksum[glance_image_checksum])

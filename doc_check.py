@@ -19,7 +19,7 @@ class FindDocstrings(ast.NodeVisitor):
         Initialize doc checker
 
         :param src_filename: filename of source to check
-        :type  src_filename: string
+        :type  src_filename: str
         """
 
         self.src_filename = src_filename
@@ -89,7 +89,7 @@ class RunDocstringCheck():
         checks docstrings for a file
 
         :param src_filename: source filename to check
-        :type  src_filename: string
+        :type  src_filename: str
         """
         self.finder = FindDocstrings(src_filename)
         with open(src_filename) as src_fd:

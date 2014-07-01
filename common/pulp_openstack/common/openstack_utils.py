@@ -87,7 +87,7 @@ class OpenstackUtils():
         :type  repo_id: string
         :param image_checksum: image checksum
         :type  image_checksum: string
-        :return: list of images
+        :return: list of images as json dicts
         :rtype: iterator
         """
         filters = {'from_pulp': 'true',
@@ -103,7 +103,7 @@ class OpenstackUtils():
 
         :param repo_id: repo name
         :type  repo_id: string
-        :return: iterator of found images
+        :return: iterator of found images as json dicts
         :rtype: iterator
         """
         filters = {'from_pulp': 'true',
@@ -114,8 +114,8 @@ class OpenstackUtils():
         """
         delete an image based on its ID
 
-        :param image: image object
-        :type  image: glanceclient.v1.images.Image
+        :param image: image
+        :type  image: image json
         """
         self.glance_client.images.update(image.id, protected=False)
         self.glance_client.images.delete(image.id)
