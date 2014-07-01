@@ -87,7 +87,7 @@ class OpenstackUtils():
         :type  repo_id: string
         :param image_checksum: image checksum
         :type  image_checksum: string
-        :return: list of images
+        :return: list of images as json dicts
         :rtype: iterator
         """
         filters = {'from_pulp': 'true',
@@ -95,12 +95,27 @@ class OpenstackUtils():
                    'checksum': image_checksum}
         return self.glance_client.images.list(filters=filters)
 
+    def find_repo_images(self, repo_id):
+        """
+        Find all images associated with a particular repo. This is useful to
+        calculate which images need to be deleted (i.e., exists in glance but
+        not pulp, yet are associated with a pulp repo).
+
+        :param repo_id: repo name
+        :type  repo_id: string
+        :return: iterator of found images as json dicts
+        :rtype: iterator
+        """
+        filters = {'from_pulp': 'true',
+                   'pulp_repo_id': repo_id}
+        return self.glance_client.images.list(filters=filters)
+
     def delete_image(self, image):
         """
         delete an image based on its ID
 
-        :param image: image object
-        :type  image: glanceclient.v1.images.Image
+        :param image: image
+        :type  image: image json
         """
         self.glance_client.images.update(image.id, protected=False)
         self.glance_client.images.delete(image.id)

@@ -51,7 +51,7 @@ class UploadOpenstackImageCommand(UploadCommand):
         We only support one content type, so this always returns that.
 
         :param filename: filename to determine type of (not used)
-        :type  filename: string
+        :type  filename: str
         :return: ID of the type of file being uploaded
         :rtype:  str
         """
@@ -99,8 +99,8 @@ class UploadOpenstackImageCommand(UploadCommand):
         :param filename: full path to the file to checksum
         :type  filename: str, None
 
-        :return:            The file's md5sum
-        :rtype:             basestring
+        :return: The file's md5sum
+        :rtype:  str
         """
         md5 = hashlib.md5()
         with open(filename, 'rb') as f:
@@ -115,8 +115,8 @@ class UploadOpenstackImageCommand(UploadCommand):
         :param filename: full path to the file to get the size of
         :type  filename: str, None
 
-        :return:            The file's size, in Bytes
-        :rtype:             int
+        :return: The file's size, in Bytes
+        :rtype:  int
         """
         with open(filename, 'rb') as f:
             # Calculate the size by seeking to the end to find the file size with tell()

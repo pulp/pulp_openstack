@@ -15,7 +15,7 @@ def get_models(metadata, unit_key, mask_id=''):
     :param mask_id:     The ID of an image that should not be included in the
                         returned models. This image and all of its ancestors
                         will be excluded.
-    :type  mask_id:     basestring
+    :type  mask_id:     str
 
     :return:    list of models.OpenstackImage instances
     :rtype:     list

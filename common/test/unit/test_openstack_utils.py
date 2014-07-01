@@ -67,6 +67,19 @@ class TestOpenstackUtils(unittest.TestCase):
 
     @patch('keystoneclient.v2_0.client.Client')
     @patch('glanceclient.v2.client.Client')
+    def test_find_repo_images(self, mock_glclient, mock_ksclient):
+        login_args = {'username': 'test-user',
+                      'password': 'test-pw',
+                      'tenant_name': 'test-tenant',
+                      'auth_url': 'http://auth.url/blah'}
+
+        ou = OpenstackUtils(**login_args)
+        ou.find_repo_images('some-repo-id')
+        mock_glclient().images.list.assert_called_with(filters={'pulp_repo_id': 'some-repo-id',
+                                                                'from_pulp': 'true'})
+
+    @patch('keystoneclient.v2_0.client.Client')
+    @patch('glanceclient.v2.client.Client')
     def test_delete(self, mock_glclient, mock_ksclient):
         login_args = {'username': 'test-user',
                       'password': 'test-pw',
