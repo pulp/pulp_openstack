@@ -17,7 +17,7 @@ BuildRequires:  rpm-python
 
 %description
 Provides a collection of platform plugins and admin client extensions to
-provide openstack image support.
+provide openstack image support
 
 %prep
 %setup -q
@@ -59,8 +59,6 @@ cp -R plugins/etc/httpd %{buildroot}/%{_sysconfdir}
 # Types
 cp -R plugins/types/* %{buildroot}/%{_usr}/lib/pulp/plugins/types/
 
-# Directories
-mkdir -p %{buildroot}/%{_sysconfdir}/pulp/agent/conf.d
 mkdir -p %{buildroot}/%{_bindir}
 
 # Remove tests
@@ -100,14 +98,13 @@ Group: Development/Languages
 Requires: python-pulp-common >= 2.4.0
 Requires: python-pulp-openstack-common = %{version} 
 Requires: pulp-server >= 2.4.0
-Requires: python-semantic-version >= 2.2.0
 Requires: python-setuptools
 Requires: python-glanceclient >= 0.12
 Requires: python-keystoneclient >= 0.6
 
 %description plugins
 Provides a collection of platform plugins that extend the Pulp platform
-to provide Openstack specific support.
+to provide Openstack specific support
 
 %files plugins
 
