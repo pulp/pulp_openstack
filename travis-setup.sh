@@ -1,6 +1,7 @@
 # to get pulp.devel and friends
 # TODO: this may be avoidable in pip 1.5, via "subdirectory=" option
-git clone http://github.com/pulp/pulp
+git clone https://github.com/pulp/pulp
+git clone https://github.com/pulp/nectar.git
 cd pulp
 pip install ./devel
 pip install ./server
@@ -9,6 +10,11 @@ pip install ./client_lib
 pip install ./bindings
 cd ..
 rm -rf pulp
+
+pushd nectar
+python setup.py install
+popd
+rm -rf nectar
 
 #this should go in requirements.txt
 pip install flake8

@@ -5,11 +5,9 @@ import os
 import subprocess
 import sys
 
-from itertools import chain
-
+from pulp.devel import doc_check
 from pulp.devel.test_runner import run_tests
 
-from doc_check import RunDocstringCheck
 
 # Find and eradicate any existing .pyc files, so they do not eradicate us!
 PROJECT_DIR = os.path.dirname(__file__)
@@ -37,23 +35,9 @@ if retval != 0:
 
 print "done, checking sphinx param docs.."
 
-checker = RunDocstringCheck()
-errors = []
-for root, dirs, files in os.walk(PROJECT_DIR):
-    # skip build and test dirs
-    if 'test' in root or 'build' in root:
-        continue
-    for file in files:
-        if file.endswith(".py"):
-            checker.check(os.path.join(root, file))
-            errors.append(checker.get_errors())
+# Ensure that all doc strings are present
+doc_check.recursive_check(PROJECT_DIR)
 
-errlist = list(chain.from_iterable(errors))
-if errlist:
-    for error in errlist:
-        print error
-    print "found undocumented parameters!"
-    sys.exit(1)
 print "done"
 
 PACKAGES = ['pulp_openstack',
@@ -73,4 +57,4 @@ PLUGIN_TESTS = ['plugins/test/unit/']
 dir_safe_all_platforms = [os.path.join(os.path.dirname(__file__), x) for x in TESTS]
 dir_safe_non_rhel5 = [os.path.join(os.path.dirname(__file__), x) for x in PLUGIN_TESTS]
 
-run_tests(PACKAGES, dir_safe_all_platforms, dir_safe_non_rhel5)
+sys.exit(run_tests(PACKAGES, dir_safe_all_platforms, dir_safe_non_rhel5))
