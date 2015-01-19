@@ -5,8 +5,8 @@ import shutil
 import logging
 
 from pulp.common.config import read_json_config
-from pulp.plugins.conduits.mixins import UnitAssociationCriteria
 from pulp.plugins.importer import Importer
+from pulp.server.db.model.criteria import UnitAssociationCriteria
 
 from pulp_openstack.common import constants, models
 
