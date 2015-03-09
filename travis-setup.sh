@@ -17,6 +17,7 @@ popd
 rm -rf nectar
 
 #this should go in requirements.txt
+pip install blinker
 pip install flake8
 pip install pymongo
 pip install iniparse

@@ -1,6 +1,6 @@
 from gettext import gettext as _
 
-from pulp.client import parsers
+from okaara import parsers
 from pulp.client.commands.repo.cudl import CreateAndConfigureRepositoryCommand
 from pulp.common.constants import REPO_NOTE_TYPE_KEY
 from pulp.client.extensions.extensions import PulpCliOption
