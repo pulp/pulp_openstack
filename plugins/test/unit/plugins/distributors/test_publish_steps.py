@@ -64,13 +64,17 @@ class TestWebPublisher(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.working_directory)
 
+    @patch('pulp.plugins.util.publish_step.common_utils.get_working_directory')
     @patch('pulp_openstack.plugins.distributors.publish_steps.AtomicDirectoryPublishStep')
     @patch('pulp_openstack.plugins.distributors.publish_steps.PublishImagesStep')
-    def test_init(self, mock_images_step, mock_web_publish_step):
+    def test_init(self, mock_images_step, mock_web_publish_step, get_working_directory):
         mock_conduit = Mock()
         mock_config = {
             constants.CONFIG_KEY_GLANCE_PUBLISH_DIRECTORY: self.publish_dir
         }
+
         publisher = publish_steps.WebPublisher(self.repo, mock_conduit, mock_config)
+
         self.assertEquals(publisher.children, [mock_images_step.return_value,
                                                mock_web_publish_step.return_value])
+        get_working_directory.assert_called_once_with()
