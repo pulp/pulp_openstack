@@ -25,7 +25,6 @@ pip install isodate
 pip install celery
 pip install okaara
 pip install coverage
-pip install pep257
 pip install python-glanceclient
 pip install python-keystoneclient
 

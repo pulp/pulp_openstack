@@ -19,20 +19,6 @@ retval = subprocess.call(['flake8', '--config', config_file, PROJECT_DIR])
 if retval != 0:
     sys.exit(retval)
 
-# the warn ignore codes should be a subset of the fail codes
-# GOAL: remove all ignores, always fail if these exist
-pep257_warn_ignore_codes = 'D100,D103,D200,D202,D203,D205,D400,D401,D402'
-pep257_fail_ignore_codes = 'D100,D102,D103,D200,D202,D203,D205,D400,D401,D402'
-
-print "checking pep257 for warnings, ignoring %s" % pep257_warn_ignore_codes
-subprocess.call(['pep257', '--ignore=' + pep257_warn_ignore_codes])
-
-print "checking pep257 for failures, ignoring %s" % pep257_fail_ignore_codes
-retval = subprocess.call(['pep257', '--ignore=' + pep257_fail_ignore_codes])
-
-if retval != 0:
-    sys.exit(retval)
-
 print "done, checking sphinx param docs.."
 
 # Ensure that all doc strings are present
